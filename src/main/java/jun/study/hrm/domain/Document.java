@@ -3,7 +3,10 @@ package jun.study.hrm.domain;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Table;
+
 @Data
+@Table(name = "document_inf")
 public class Document implements java.io.Serializable{
 
 	private int id;					// 编号

@@ -2,7 +2,11 @@ package jun.study.hrm.domain;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Table;
+
 @Data
+@Table(name = "employee_inf")
 public class Employee implements java.io.Serializable{
 
 	private Integer id;			// id

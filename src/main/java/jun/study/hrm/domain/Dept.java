@@ -2,7 +2,10 @@ package jun.study.hrm.domain;
 
 import lombok.Data;
 
+import javax.persistence.Table;
+
 @Data
+@Table(name = "dept_inf")
 public class Dept implements java.io.Serializable{
 
 	private Integer id;		// id

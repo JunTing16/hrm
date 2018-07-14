@@ -2,6 +2,8 @@ package jun.study.hrm.domain;
 
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +14,7 @@ import java.util.Date;
  * @version V1.0   
  */
 @Data
+@Table(name = "user_inf")
 public class User implements Serializable {
 
 	private Integer id;			// id
@@ -19,6 +22,7 @@ public class User implements Serializable {
 	private String loginname;	// 登录名
 	private String password;	// 密码
 	private Integer status;		// 状态
+	@Column(name = "createdate")
 	private Date createDate;	// 建档日期
 	// 无参数构造器
 	public User() {

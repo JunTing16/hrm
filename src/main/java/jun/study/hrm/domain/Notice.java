@@ -2,7 +2,10 @@ package jun.study.hrm.domain;
 
 import lombok.Data;
 
+import javax.persistence.Table;
+
 @Data
+@Table(name = "notice_inf")
 public class Notice implements java.io.Serializable{
 
 	private Integer id;		// 编号

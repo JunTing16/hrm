@@ -2,6 +2,7 @@ package jun.study.hrm.service.impl;
 
 import jun.study.hrm.dao.*;
 import jun.study.hrm.domain.*;
+import jun.study.hrm.repository.UserRepository;
 import jun.study.hrm.service.HrmService;
 import jun.study.hrm.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,9 @@ public class HrmServiceImpl implements HrmService {
 	 * */
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private DeptDao deptDao;
@@ -53,7 +59,10 @@ public class HrmServiceImpl implements HrmService {
 	@Override
 	public User login(String loginname, String password) {
 //		System.out.println("HrmServiceImpl login -- >>");
-		return userDao.selectByLoginnameAndPassword(loginname, password);
+		User user = new User();
+		user.setLoginname(loginname);
+		user.setPassword(password);
+		return userRepository.select(user).get(0);//userDao.selectByLoginnameAndPassword(loginname, password);
 	}
 
 	/**
@@ -86,11 +95,11 @@ public class HrmServiceImpl implements HrmService {
 	public User findUserById(Integer id) {
 		return userDao.selectById(id);
 	}
-	
+
 	/**
 	 * HrmServiceImpl接口removeUserById方法实现
-	 * @see { HrmService }
-	 * */
+	 * @param id
+	 */
 	@Override
 	public void removeUserById(Integer id) {
 		userDao.deleteById(id);
