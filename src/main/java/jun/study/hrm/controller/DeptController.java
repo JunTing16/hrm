@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeptController {
 
 	/**
-	 * 自动注入UserService
+	 * 注入UserService
 	 * */
 	@Autowired
 	@Qualifier("hrmService")
@@ -76,9 +76,9 @@ public class DeptController {
 	
 	/**
 	 * 处理添加请求
-	 * @param String flag 标记， 1表示跳转到添加页面，2表示执行添加操作
-	 * @param Dept  dept  要添加的部门对象
-	 * @param ModelAndView mv
+	 * @param  flag 标记， 1表示跳转到添加页面，2表示执行添加操作
+	 * @param   dept  要添加的部门对象
+	 * @param  mv
 	 * */
 	@RequestMapping(value="/dept/addDept")
 	 public ModelAndView addDept(
@@ -101,9 +101,9 @@ public class DeptController {
 	
 	/**
 	 * 处理修改部门请求
-	 * @param String flag 标记， 1表示跳转到修改页面，2表示执行修改操作
-	 * @param Dept dept 要修改部门的对象
-	 * @param ModelAndView mv
+	 * @param  flag 标记， 1表示跳转到修改页面，2表示执行修改操作
+	 * @param  dept 要修改部门的对象
+	 * @param  mv
 	 * */
 	@RequestMapping(value="/dept/updateDept")
 	 public ModelAndView updateDpet(
