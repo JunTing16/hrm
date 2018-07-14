@@ -53,7 +53,6 @@ public class HrmServiceImpl implements HrmService {
 	/*****************用户服务接口实现*************************************/
 	/**
 	 * HrmServiceImpl接口login方法实现
-	 *  @see { HrmService }
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -62,12 +61,12 @@ public class HrmServiceImpl implements HrmService {
 		User user = new User();
 		user.setLoginname(loginname);
 		user.setPassword(password);
-		return userRepository.select(user).get(0);//userDao.selectByLoginnameAndPassword(loginname, password);
+		return userRepository.selectOne(user);//userDao.selectByLoginnameAndPassword(loginname, password);
 	}
 
 	/**
 	 * HrmServiceImpl接口findUser方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -88,12 +87,14 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口findUserById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
 	public User findUserById(Integer id) {
-		return userDao.selectById(id);
+		User user = new User();
+		user.setId(id);
+		return userRepository.selectOne(user);//userDao.selectById(id);
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口addUser方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyUser(User user) {
@@ -118,7 +119,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口modifyUser方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addUser(User user) {
@@ -136,7 +137,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口findDept方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -159,7 +160,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口removeUserById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void removeDeptById(Integer id) {
@@ -169,7 +170,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmServiceImpl接口addDept方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addDept(Dept dept) {
@@ -179,7 +180,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口findDeptById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public Dept findDeptById(Integer id) {
@@ -189,7 +190,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmServiceImpl接口modifyDept方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyDept(Dept dept) {
@@ -199,7 +200,7 @@ public class HrmServiceImpl implements HrmService {
 	/*****************员工服务接口实现*************************************/
 	/**
 	 * HrmService接口findEmployee方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -220,7 +221,7 @@ public class HrmServiceImpl implements HrmService {
 	}
 	/**
 	 * HrmService接口removeEmployeeById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void removeEmployeeById(Integer id) {
@@ -229,7 +230,7 @@ public class HrmServiceImpl implements HrmService {
 	}
 	/**
 	 * HrmService接口findEmployeeById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -240,7 +241,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口addEmployee方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addEmployee(Employee employee) {
@@ -250,7 +251,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口modifyEmployee方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyEmployee(Employee employee) {
@@ -261,7 +262,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口findAllJob方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -272,7 +273,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口findJob方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -295,7 +296,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口removeJobById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void removeJobById(Integer id) {
@@ -305,7 +306,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口addJob方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addJob(Job job) {
@@ -315,7 +316,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口findJobById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -326,7 +327,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口modifyJob方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyJob(Job job) {
@@ -356,7 +357,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口findNoticeById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -367,7 +368,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口removeNoticeById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void removeNoticeById(Integer id) {
@@ -377,7 +378,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口addNotice方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addNotice(Notice notice) {
@@ -387,7 +388,7 @@ public class HrmServiceImpl implements HrmService {
 	
 	/**
 	 * HrmService接口modifyNotice方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyNotice(Notice notice) {
@@ -399,7 +400,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口findDocument方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
@@ -422,7 +423,7 @@ public class HrmServiceImpl implements HrmService {
 
 	/**
 	 * HrmService接口addDocument方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void addDocument(Document document) {
@@ -431,7 +432,7 @@ public class HrmServiceImpl implements HrmService {
 	}
 	/**
 	 * HrmService接口removeDocumentById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void removeDocumentById(Integer id) {
@@ -440,7 +441,7 @@ public class HrmServiceImpl implements HrmService {
 	}
 	/**
 	 * HrmService接口modifyDocument方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Override
 	public void modifyDocument(Document document) {
@@ -449,7 +450,7 @@ public class HrmServiceImpl implements HrmService {
 	}
 	/**
 	 * HrmService接口findDocumentById方法实现
-	 * @see { HrmService }
+	 * 
 	 * */
 	@Transactional(readOnly=true)
 	@Override
