@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+			            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+			            http://www.springframework.org/schema/context
+			            http://www.springframework.org/schema/context/spring-context-4.2.xsd
+			            http://www.springframework.org/schema/mvc
+			            http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+			            http://www.springframework.org/schema/tx
+			            http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+			            http://mybatis.org/schema/mybatis-spring 
+			            http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+			      
+	 <!-- mybatis:scan会扫描jun.study.hrm.dao包里的所有接口当作Spring的bean配置，之后可以进行依赖注入-->
+    <mybatis:scan base-package="jun.study.hrm.dao"/>
+       
+	 <!-- 扫描org.fkit包下面的java文件，有Spring的相关注解的类，则把这些类注册为Spring的bean -->
+    <context:component-scan base-package="jun.study.hrm"/>
+    
+	<!-- 使用PropertyOverrideConfigurer后处理器加载数据源参数 -->
+	<!--<context:property-override location="classpath:db.properties"/>-->
+
+	<!-- 配置c3p0数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/hrm_db3?characterEncoding=UTF-8" />
+		<property name="user" value="root" />
+		<property name="password" value="123456" />
+
+		<!--c3p0私有属性-->
+		<property name="maxPoolSize" value="30"/>
+		<property name="minPoolSize" value="10"/>
+		<!--关闭连接后不自动commit-->
+		<property name="autoCommitOnClose" value="false"/>
+
+		<!--获取连接超时时间-->
+		<property name="checkoutTimeout" value="5000"/>
+		<!--当获取连接失败重试次数-->
+		<property name="acquireRetryAttempts" value="2"/>
+	</bean>
+	
+	<!-- 配置SqlSessionFactory，org.mybatis.spring.SqlSessionFactoryBean是Mybatis社区开发用于整合Spring的bean -->
+	<!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+	    p:dataSource-ref="dataSource"/>-->
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configuration" ref="mybatisConfig"/>
+	</bean>
+	<!-- 对dataSource 数据源进行事务管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		  p:dataSource-ref="dataSource"/>
+
+	<!--通用mapper的官方4.0以后的配置 使用 Configuration 方式进行配置-->
+	<bean id="mybatisConfig" class="tk.mybatis.mapper.session.Configuration">
+		<!-- 配置通用 Mapper，有三种属性注入方式 -->
+		<property name="mapperProperties">
+			<value>
+				notEmpty=true
+			</value>
+		</property>
+	</bean>
+
+	<!-- 不需要考虑下面这个，注意这里是 org 的 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="tk.mybatis.mapper.configuration"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
+
+
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="jun.study.hrm.repository"/>
+	</bean>
+
+	<!-- 配置使Spring采用CGLIB代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 启用对事务注解的支持 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
